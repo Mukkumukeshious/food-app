@@ -1,3 +1,6 @@
+import Cta from "@/components/Cta";
+import Footer from "@/components/Footer";
+import Testimonials from "@/components/Testimonials";
 import { Button } from "@/components/ui/button";
 import { Clock, Leaf, Utensils } from "lucide-react";
 import Image from "next/image";
@@ -46,7 +49,7 @@ const page = () => {
              <div className="flex gap-5 items-center justify-center p-4 rounded-lg bg-background">
               <Utensils className="h-10 w-10 text-primary"/>
               <h3 className="text-xl font-bold">Master Chef</h3>
-              <p className="text-muted-foreground">For you - 50+ dish</p>
+              <p className="text-muted-foreground">For you - 50+ dishes</p>
 
             </div>
 
@@ -62,7 +65,17 @@ const page = () => {
         </div>
 
         </section>
+
+        {/* Menu priview section */}
+
+
+        {/* testimonial section */}
+        <Testimonials />
+
+        {/* cta section */}
+        <Cta />
       </main>
+      <Footer/>
     </div>
   );
 };
