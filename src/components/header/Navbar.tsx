@@ -62,7 +62,7 @@ const Navbar = () => {
             size={"icon"}
             variant={"ghost"}
             onClick={() => setMenu(!menuOpen)}
-            className="md:hodden focus:outline-none"
+            className="md:hidden focus:outline-none"
           >
             {menuOpen ? (
               <X className="h-5 w-5" />
@@ -71,6 +71,7 @@ const Navbar = () => {
             )}
           </Button>
         </div>
+      </div>
 
       {menuOpen && (
         <div className="md:hidden px-4 py-2 border-t bg-background space-y-2">
