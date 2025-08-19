@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -13,12 +14,21 @@ import { Textarea } from "@/components/ui/textarea";
 import UploadExample from "@/components/UploadImage";
 import { SelectContent } from "@radix-ui/react-select";
 import Link from "next/link";
-import React from "react";
+import React, { useActionState, useState } from "react";
+import { CreateMenuAction } from "../../../../../actions/create-menu";
 
 const categories = ["Pizza", "Burger", "Pasta", "Salad", "Dessert"];
 
 const page = () => {
-    const isPading = false;
+    // const is pending = false; // Replace with actual loading state if needed
+    const [formState, action, isPading] = useActionState(CreateMenuAction, {errors:{}})
+    const [imageUrl, setImageUrl] = useState<string | null>(null);
+
+    const handleAction = (formData: FormData) => {
+        formData.append("image", imageUrl || "");
+        return action(formData);
+    }
+
     return (
         <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-white">
             <Card className="w-full max-w-xl">
@@ -38,7 +48,7 @@ const page = () => {
                     </CardTitle>
                 </CardHeader>
                 <CardContent>
-                    <form action="">
+                    <form action={handleAction} className="space-y-6">
                         <div className="space-y-4">
                             <Label>Item Name</Label>
                             <Input
@@ -47,6 +57,11 @@ const page = () => {
                                 placeholder="e.g Pizza"
                                 className="mt-2"
                             />
+                            {formState.errors.name && (
+                                <p className="text-red-500 text-sm mt-1">
+                                    {formState.errors.name}
+                                </p>
+                            )}
                         </div>
 
                         <div className="space-y-4 mt-4">
@@ -56,6 +71,11 @@ const page = () => {
                                 placeholder="Description of item"
                                 className="mt-2"
                             />
+                            {formState.errors.description && (
+                                <p className="text-red-500 text-sm mt-1">
+                                    {formState.errors.description}
+                                </p>
+                            )}
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
@@ -67,6 +87,11 @@ const page = () => {
                                     placeholder="0.00"
                                     className="mt-2"
                                 />
+                                {formState.errors.price && (
+                                <p className="text-red-500 text-sm mt-1">
+                                    {formState.errors.price}
+                                </p>
+                            )}
                             </div>
 
                             <div className="space-y-4">
@@ -89,10 +114,15 @@ const page = () => {
                                         </SelectGroup>
                                     </SelectContent>
                                 </Select>
+                                {formState.errors.category && (
+                                    <p className="text-red-500 text-sm mt-1">
+                                        {formState.errors.category}
+                                    </p>
+                                )}
                             </div>
                         </div>
                         {/* Upload image */}
-                        <UploadExample/>
+                        <UploadExample setImageUrl = {setImageUrl}/>
                         <Button
                             disabled={isPading}
                             type="submit"
