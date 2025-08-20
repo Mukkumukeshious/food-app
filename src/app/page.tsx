@@ -1,5 +1,6 @@
 import Cta from "@/components/Cta";
 import Footer from "@/components/Footer";
+import MenuPreview from "@/components/MenuPreview";
 import Testimonials from "@/components/Testimonials";
 import { Button } from "@/components/ui/button";
 import { Clock, Leaf, Utensils } from "lucide-react";
@@ -67,6 +68,7 @@ const page = () => {
         </section>
 
         {/* Menu priview section */}
+        <MenuPreview/>
 
 
         {/* testimonial section */}

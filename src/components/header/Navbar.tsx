@@ -26,7 +26,7 @@ const Navbar = () => {
             <Link href={"/about"} className="text-sm font-medium">
               About
             </Link>
-            <Link href={"/admin"} className="text-sm font-medium">
+            <Link href={"/admin/menu"} className="text-sm font-medium">
               Admin
             </Link>
           </div>
