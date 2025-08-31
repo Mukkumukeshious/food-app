@@ -6,12 +6,15 @@ import { Minus, Plus, X } from "lucide-react";
 import { Input } from "./ui/input";
 
 const CartItem = ({ item }: { item: Item }) => {
-  const {removeFromCart, increaseQuantity, decreaseQuantity} = useCartStore((store) => store);
+  const removeFromCart = useCartStore((s) => s.removeFromCart);
+  const increaseQuantity = useCartStore((s) => s.increaseQuantity);
+  const decreaseQuantity = useCartStore((s) => s.decreaseQuantity);
+
   return (
     <div className="flex items-stretch gap-4 border p-4 rounded">
       <div className="relative w-24 h-24">
         <Image
-          src={item.imageUrl!}
+          src={item.imageUrl ?? "/fallback.png"}
           alt={item.name}
           fill
           className="object-cover rounded"
@@ -25,27 +28,23 @@ const CartItem = ({ item }: { item: Item }) => {
               ${item.price.toFixed(2)}
             </p>
           </div>
-          <Button
-            size={"icon"}
-            variant={"ghost"}
-            onClick={() => removeFromCart(item.id)}
-          >
+          <Button size="icon" variant="ghost" onClick={() => removeFromCart(item.id)}>
             <X className="w-4 h-4" />
           </Button>
         </div>
         <div className="mt-4 flex items-center">
-          <Button onClick={() => decreaseQuantity(item.id)} size={"icon"} variant={"ghost"}>
-            <Minus className="w-4 h-4 mr-2" />
+          <Button onClick={() => decreaseQuantity(item.id)} size="icon" variant="ghost">
+            <Minus className="w-4 h-4" />
           </Button>
-          <Input 
-          type="number"
-          value={item.quantity}
-          min='1'
-          readOnly
-          className="w-10 h-10 text-center"/>
-          <Button onClick={() => increaseQuantity(item.id)} size={"icon"} variant={"ghost"}>
-            <Plus className="w-4 h-4 ml-2" />
-
+          <Input
+            type="number"
+            value={item.quantity}
+            min={1}
+            readOnly
+            className="w-12 h-10 text-center"
+          />
+          <Button onClick={() => increaseQuantity(item.id)} size="icon" variant="ghost">
+            <Plus className="w-4 h-4" />
           </Button>
         </div>
       </div>
