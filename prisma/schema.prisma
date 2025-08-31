@@ -12,10 +12,10 @@ datasource db {
 model MenuItem {
   id          String      @id @default(cuid())
   name        String
-  description String?
+  description String
   category    String
   price       Float
-  imageUrl    String?
+  imageUrl    String
   available   Boolean  @default(true)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt

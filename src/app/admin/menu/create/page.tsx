@@ -23,11 +23,14 @@ const page = () => {
     // const is pending = false; // Replace with actual loading state if needed
     const [formState, action, isPading] = useActionState(CreateMenuAction, {errors:{}})
     const [imageUrl, setImageUrl] = useState<string | null>(null);
+    
 
     const handleAction = (formData: FormData) => {
         formData.append("image", imageUrl || "");
         return action(formData);
+        
     }
+    
 
     return (
         <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-white">
